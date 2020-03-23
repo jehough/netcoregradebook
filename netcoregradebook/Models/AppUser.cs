@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace netcoregradebook.Models
 {
-    public class AppUserModel : IdentityUser
+    public class AppUser : IdentityUser
     {   
         [Key]
         public int StudentId { set; get; }

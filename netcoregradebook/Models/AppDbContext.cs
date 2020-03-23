@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace netcoregradebook.Models
 {
-    public class AppDbContext : IdentityDbContext<AppUserModel>
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
