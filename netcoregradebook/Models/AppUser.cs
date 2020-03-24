@@ -10,7 +10,7 @@ namespace netcoregradebook.Models
     public class AppUser : IdentityUser
     {   
         [Key]
-        public int StudentId { set; get; }
+        public int UserId { set; get; }
         public string FullName { set; get; }
     }
 }
