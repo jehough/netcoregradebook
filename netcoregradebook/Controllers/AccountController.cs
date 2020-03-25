@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using netcoregradebook.Models;
+using netcoregradebook.Models.AccountViewModels;
 
 namespace netcoregradebook.Controllers
 {
@@ -36,6 +37,13 @@ namespace netcoregradebook.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        {
+
         }
     }
 }
