@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace netcoregradebook.Models.AccountViewModels
 {
-    public class StudentRegisterViewModel
+    public class UserRegisterViewModel
     {
         [Required]
         [EmailAddress]

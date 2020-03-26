@@ -42,7 +42,7 @@ namespace netcoregradebook.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> StudentRegister(StudentRegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> StudentRegister(UserRegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -64,6 +64,37 @@ namespace netcoregradebook.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult TeacherRegister(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> TeacherRegister(UserRegisterViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new AppUser { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
+
+                    await _userManager.AddToRoleAsync(user, "Teacher");
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation("User created a new account with password.");
+                    return RedirectToLocal(returnUrl);
+                }
+                AddErrors(result);
+            }
+            return View(model);
+        }
         #region helpers
 
         private void AddErrors(IdentityResult result)
