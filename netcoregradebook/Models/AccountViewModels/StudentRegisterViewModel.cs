@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace netcoregradebook.Models.AccountViewModels
 {
-    public class RegisterViewModel
+    public class StudentRegisterViewModel
     {
         [Required]
         [EmailAddress]
@@ -24,5 +24,7 @@ namespace netcoregradebook.Models.AccountViewModels
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
+
+
     }
 }

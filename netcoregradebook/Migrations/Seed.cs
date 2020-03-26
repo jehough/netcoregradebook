@@ -11,7 +11,7 @@ namespace netcoregradebook.Migrations
 {
     public class Seed
     {
-        private async Task CreateRoles(IServiceProvider serviceProvider)
+        public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
@@ -29,11 +29,11 @@ namespace netcoregradebook.Migrations
 
             var poweruser = new AppUser
             {
-                UserName = "johndoe@email.com",
-                Email = "johndoe@email.com"
+                UserName = Configuration.GetSection("AppSettings")["UserEmail"],
+                Email = Configuration.GetSection("AppSettings")["UserEmail"]
             };
 
-            string UserPassword = "P@ssw0rd";
+            string UserPassword = Configuration.GetSection("AppSettings")["UserPassword"];
             var _user = await UserManager.FindByEmailAsync("johndoe@email.com");
 
             if (_user == null)

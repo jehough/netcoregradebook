@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using netcoregradebook.Migrations;
 using netcoregradebook.Models;
 
 namespace netcoregradebook
@@ -26,12 +27,14 @@ namespace netcoregradebook
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IServiceProvider serviceProvider = services.GetRequiredService<IServiceProvider>();
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+            Seed.CreateRoles(serviceProvider, Configuration).Wait();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
