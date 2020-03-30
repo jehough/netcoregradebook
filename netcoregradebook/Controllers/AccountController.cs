@@ -95,6 +95,17 @@ namespace netcoregradebook.Controllers
             }
             return View(model);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(string returnUrl = null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
         #region helpers
 
         private void AddErrors(IdentityResult result)
