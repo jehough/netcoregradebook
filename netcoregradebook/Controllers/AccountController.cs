@@ -42,6 +42,7 @@ namespace netcoregradebook.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> StudentRegister(UserRegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -74,6 +75,7 @@ namespace netcoregradebook.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> TeacherRegister(UserRegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -106,6 +108,50 @@ namespace netcoregradebook.Controllers
             return View();
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(UserLoginViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: false, lockoutOnFailure: false);
+
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return RedirectToLocal(returnUrl);
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogInformation("User Account Locked Out.");
+                    return RedirectToAction(nameof(Lockout));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Lockout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
         #region helpers
 
         private void AddErrors(IdentityResult result)
