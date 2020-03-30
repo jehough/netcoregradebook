@@ -25,7 +25,7 @@ namespace netcoregradebook
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IServiceProvider serviceProvider)
+        public void ConfigureServices(IServiceCollection services)
         {
             
             services.AddControllersWithViews();
@@ -34,11 +34,11 @@ namespace netcoregradebook
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-            CreateRoles(serviceProvider).Wait();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -64,6 +64,7 @@ namespace netcoregradebook
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            CreateRoles(serviceProvider).Wait();
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)
@@ -79,24 +80,6 @@ namespace netcoregradebook
                 if (!roleExist)
                 {
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-
-            var poweruser = new AppUser
-            {
-                UserName = Configuration.GetSection("AppSettings")["UserEmail"],
-                Email = Configuration.GetSection("AppSettings")["UserEmail"]
-            };
-
-            string UserPassword = Configuration.GetSection("AppSettings")["UserPassword"];
-            var _user = await UserManager.FindByEmailAsync("johndoe@email.com");
-
-            if (_user == null)
-            {
-                var createPowerUser = await UserManager.CreateAsync(poweruser, UserPassword);
-                if (createPowerUser.Succeeded)
-                {
-                    await UserManager.AddToRoleAsync(poweruser, "Admin");
                 }
             }
         }
