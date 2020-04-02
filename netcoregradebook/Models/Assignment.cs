@@ -13,5 +13,12 @@ namespace netcoregradebook.Models
         public string Name { get; set; }
         public DateTime Due { get; set; }
         public int MaxPoints { get; set; }
+
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
     }
 }
