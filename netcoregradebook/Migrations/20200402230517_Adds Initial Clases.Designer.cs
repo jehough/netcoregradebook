@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using netcoregradebook.Models;
 
 namespace netcoregradebook.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200402230517_Adds Initial Clases")]
+    partial class AddsInitialClases
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,111 +223,6 @@ namespace netcoregradebook.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("netcoregradebook.Models.Assignment", b =>
-                {
-                    b.Property<int>("AssignmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Due")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MaxPoints")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AssignmentId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Assignments");
-                });
-
-            modelBuilder.Entity("netcoregradebook.Models.Category", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoryId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("netcoregradebook.Models.Course", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CourseName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("YearId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId");
-
-                    b.HasIndex("YearId");
-
-                    b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("netcoregradebook.Models.Year", b =>
-                {
-                    b.Property<int>("YearId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Q1Start")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Q2Start")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Q3Start")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Q4Start")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("YearId");
-
-                    b.ToTable("Year");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -373,38 +270,6 @@ namespace netcoregradebook.Migrations
                     b.HasOne("netcoregradebook.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("netcoregradebook.Models.Assignment", b =>
-                {
-                    b.HasOne("netcoregradebook.Models.Category", "Category")
-                        .WithMany("Assignments")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("netcoregradebook.Models.Course", "Course")
-                        .WithMany("Assignments")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("netcoregradebook.Models.Category", b =>
-                {
-                    b.HasOne("netcoregradebook.Models.Course", "Course")
-                        .WithMany("Categories")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("netcoregradebook.Models.Course", b =>
-                {
-                    b.HasOne("netcoregradebook.Models.Year", "Year")
-                        .WithMany("Courses")
-                        .HasForeignKey("YearId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -5,6 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200402232201_Add Classes.cs" />
+    <Compile Remove="Migrations\20200402232201_Add Classes.Designer.cs" />
+    <Compile Remove="Migrations\20200403103414_Corrects Delete Behavior.cs" />
+    <Compile Remove="Migrations\20200403103414_Corrects Delete Behavior.Designer.cs" />
+    <Compile Remove="Migrations\20200403103528_Another Correctin.cs" />
+    <Compile Remove="Migrations\20200403103528_Another Correctin.Designer.cs" />
+    <Compile Remove="Migrations\20200403104427_More Corrections.cs" />
+    <Compile Remove="Migrations\20200403104427_More Corrections.Designer.cs" />
+    <Compile Remove="Migrations\20200403105611_Corrections to Assignment.cs" />
+    <Compile Remove="Migrations\20200403105611_Corrections to Assignment.Designer.cs" />
+    <Compile Remove="Migrations\20200403110212_Troubleshooting.cs" />
+    <Compile Remove="Migrations\20200403110212_Troubleshooting.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
