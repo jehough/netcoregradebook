@@ -16,6 +16,6 @@ namespace netcoregradebook.Models
         public Course Course { get; set; }
 
         
-        public List<Assignment> Assignments { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
     }
 }

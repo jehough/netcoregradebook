@@ -30,6 +30,8 @@ namespace netcoregradebook.Models
                 .WithMany(p => p.Assignments)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
+            builder.Entity<UsersInCourses>()
+                .HasKey(p => new { p.UserID, p.CourseId });
 
         }
     }

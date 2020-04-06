@@ -12,5 +12,7 @@ namespace netcoregradebook.Models
         [Key]
         public int UserId { set; get; }
         public string FullName { set; get; }
+
+        public virtual ICollection<UsersInCourses> UsersInCourses { get; set; }
     }
 }

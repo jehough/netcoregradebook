@@ -17,6 +17,6 @@ namespace netcoregradebook.Models
         public DateTime Q4Start { get; set; }
         public DateTime End { get; set; }
 
-        public List<Course> Courses { get; set; }
+        public ICollection<Course> Courses { get; set; }
     }
 }
