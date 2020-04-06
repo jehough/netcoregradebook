@@ -13,7 +13,7 @@ namespace netcoregradebook.Models
         public int UserID { get; set; }
         public int CourseId { get; set; }
 
-        [ForeignKey ("AppUserId")]
+        
         public AppUser AppUser { get; set; }
         public Course Course { get; set; }
     }
