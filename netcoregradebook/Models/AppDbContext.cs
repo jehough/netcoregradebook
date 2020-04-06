@@ -32,6 +32,8 @@ namespace netcoregradebook.Models
                 .IsRequired(false);
             builder.Entity<UsersInCourses>()
                 .HasKey(p => new { p.UserID, p.CourseId });
+            builder.Entity<AssignmentsForStudents>()
+                .HasKey(p => new { p.UserId, p.AssignmentId });
 
         }
     }

@@ -14,5 +14,6 @@ namespace netcoregradebook.Models
         public string FullName { set; get; }
 
         public virtual ICollection<UsersInCourses> UsersInCourses { get; set; }
+        public virtual ICollection<AssignmentsForStudents> AssignmentsForStudents { get; set; }
     }
 }

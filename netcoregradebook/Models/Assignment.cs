@@ -19,7 +19,7 @@ namespace netcoregradebook.Models
         [Required]
         public int MaxPoints { get; set; }
 
-
+        public virtual ICollection<AssignmentsForStudents> AssignmentsForStudents { get; set; }
         
         [ForeignKey("Course")]
         public int CourseId { get; set; }
