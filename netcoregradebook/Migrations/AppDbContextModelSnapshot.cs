@@ -382,13 +382,13 @@ namespace netcoregradebook.Migrations
                     b.HasOne("netcoregradebook.Models.Category", "Category")
                         .WithMany("Assignments")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("netcoregradebook.Models.Course", "Course")
                         .WithMany("Assignments")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("netcoregradebook.Models.Category", b =>

@@ -10,7 +10,7 @@ using netcoregradebook.Models;
 namespace netcoregradebook.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200403110725_Adds Models")]
+    [Migration("20200406101440_Adds Models")]
     partial class AddsModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -384,13 +384,13 @@ namespace netcoregradebook.Migrations
                     b.HasOne("netcoregradebook.Models.Category", "Category")
                         .WithMany("Assignments")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("netcoregradebook.Models.Course", "Course")
                         .WithMany("Assignments")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("netcoregradebook.Models.Category", b =>

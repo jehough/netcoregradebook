@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20200403105611_Corrections to Assignment.Designer.cs" />
     <Compile Remove="Migrations\20200403110212_Troubleshooting.cs" />
     <Compile Remove="Migrations\20200403110212_Troubleshooting.Designer.cs" />
+    <Compile Remove="Migrations\20200403110725_Adds Models.cs" />
+    <Compile Remove="Migrations\20200403110725_Adds Models.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

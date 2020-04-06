@@ -23,16 +23,13 @@ namespace netcoregradebook.Models
             builder.Entity<Assignment>()
                 .HasOne(p => p.Course)
                 .WithMany(p => p.Assignments)
-                .HasForeignKey(p => p.CourseId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .HasForeignKey(p => p.CourseId);
 
             builder.Entity<Assignment>()
                 .HasOne(p => p.Category)
                 .WithMany(p => p.Assignments)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
 
         }
     }
